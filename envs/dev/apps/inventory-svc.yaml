@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-inventory-svc
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Jimag-Dev-Org/Jimag-GitOps.git
+    targetRevision: main          # or develop, depending on your flow
+    path: apps/inventory-svc/overlays/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

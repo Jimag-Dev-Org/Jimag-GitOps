@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-svc
+  labels:
+    app: inventory-svc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: inventory-svc
+  template:
+    metadata:
+      labels:
+        app: inventory-svc
+    spec:
+      containers:
+        - name: inventory-svc
+          # TODO: replace with your real ECR image
+          image: nginx:stable 
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3001
+              name: http
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "3001"
+            # DB envs will be wired later via Secrets / External Secrets
+            # - name: DATABASE_URL
+            #   valueFrom: ...
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /api/readyz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

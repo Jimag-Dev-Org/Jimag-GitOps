@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: car-frontend
+  labels:
+    app: car-frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: car-frontend
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

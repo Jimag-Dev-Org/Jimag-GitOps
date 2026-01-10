@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-svc
+  labels:
+    app: inventory-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: inventory-svc
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

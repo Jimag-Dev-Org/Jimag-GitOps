@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: car-frontend
+  labels:
+    app: car-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: car-frontend
+  template:
+    metadata:
+      labels:
+        app: car-frontend
+    spec:
+      containers:
+        - name: car-frontend
+          # TODO: replace with your real ECR image
+          image: nginx:stable 
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: http
+          env:
+            - name: NODE_ENV
+              value: "production"
+            # For now, point to internal service. Later we might use an external URL.
+            - name: NEXT_PUBLIC_API_BASE
+              value: "http://inventory-svc.dev.svc.cluster.local/api"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
