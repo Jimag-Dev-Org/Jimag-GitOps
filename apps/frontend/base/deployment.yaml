@@ -20,14 +20,14 @@ spec:
           image: nginx:stable 
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 3000
+            - containerPort: 80
               name: http
           env:
             - name: NODE_ENV
               value: "production"
             # For now, point to internal service. Later we might use an external URL.
-            - name: NEXT_PUBLIC_API_BASE
-              value: "http://inventory-svc.dev.svc.cluster.local/api"
+          #  - name: NEXT_PUBLIC_API_BASE
+          #    value: "http://inventory-svc.dev.svc.cluster.local/api"
           livenessProbe:
             httpGet:
               path: /
