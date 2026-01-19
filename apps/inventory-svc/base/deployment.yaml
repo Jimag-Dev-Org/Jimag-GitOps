@@ -2,10 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: inventory-svc
-  labels:
-    app: inventory-svc
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: inventory-svc
@@ -16,36 +14,24 @@ spec:
     spec:
       containers:
         - name: inventory-svc
-          # TODO: replace with your real ECR image
-          image: nginx:stable 
+          # Image will be overridden in dev overlay for now
+          image: 329551316753.dkr.ecr.us-east-1.amazonaws.com/jimag-dev-inventory-svc:dev-placeholder
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
-              name: http
+            - containerPort: 3001
           env:
             - name: NODE_ENV
-              value: "production"
-           # - name: PORT
-            #   value: "3001"
-            # DB envs will be wired later via Secrets / External Secrets
-            # - name: DATABASE_URL
-            #   valueFrom: ...
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySeconds: 10
-            periodSeconds: 15
+              value: "production"  # base default; dev overlay can override
+            # DATABASE_URL (or similar) will be added later once we wire secrets properly
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /api/readyz
+              port: 3001
             initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: 3001
+            initialDelaySeconds: 20
             periodSeconds: 10
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "256Mi"
-            limits:
-              cpu: "500m"
-              memory: "512Mi"

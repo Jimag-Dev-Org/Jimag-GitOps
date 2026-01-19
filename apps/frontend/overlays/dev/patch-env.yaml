@@ -1,14 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: car-frontend
+  name: frontend
 spec:
   template:
     spec:
       containers:
-        - name: car-frontend
+        - name: frontend
+          image: 329551316753.dkr.ecr.us-east-1.amazonaws.com/jimag-dev-car-website-frontend:dev-1a9780350a030cac7ccd3e8ae16f6c343f91d03e
           env:
             - name: NODE_ENV
               value: "development"
-
-

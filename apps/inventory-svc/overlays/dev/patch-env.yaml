@@ -7,8 +7,7 @@ spec:
     spec:
       containers:
         - name: inventory-svc
+          image: 329551316753.dkr.ecr.us-east-1.amazonaws.com/jimag-dev-inventory-svc:dev-fcb15c85e0aefc30bc55ed824a8a5e749cc465fe
           env:
             - name: NODE_ENV
               value: "development"
-
-
