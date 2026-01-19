@@ -1,43 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: car-frontend
-  labels:
-    app: car-frontend
+  name: frontend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: car-frontend
+      app: frontend
   template:
     metadata:
       labels:
-        app: car-frontend
+        app: frontend
     spec:
       containers:
-        - name: car-frontend
-          # TODO: replace with your real ECR image
-          image: nginx:stable 
+        - name: frontend
+          image: 329551316753.dkr.ecr.us-east-1.amazonaws.com/jimag-dev-frontend:dev-placeholder
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
-              name: http
+            - containerPort: 3000
           env:
             - name: NODE_ENV
               value: "production"
-            # For now, point to internal service. Later we might use an external URL.
-          #  - name: NEXT_PUBLIC_API_BASE
-          #    value: "http://inventory-svc.dev.svc.cluster.local/api"
+            # Example: how frontend talks to backend INSIDE the cluster
+            - name: NEXT_PUBLIC_API_BASE
+              value: "http://inventory-svc.api-dev.svc.cluster.local"  # for example, depending on namespace
+
           livenessProbe:
             httpGet:
               path: /
-              port: http
+              port: 3000
             initialDelaySeconds: 15
             periodSeconds: 20
           readinessProbe:
             httpGet:
               path: /
-              port: http
+              port: 3000
             initialDelaySeconds: 10
             periodSeconds: 10
           resources:
