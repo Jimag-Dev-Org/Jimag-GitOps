@@ -16,7 +16,7 @@ spec:
           envFrom:
             # reuse the exact same env as your deployment so DATABASE_URL is correct
             - secretRef:
-                name: inventory-db
+                name: inventory-db-credentials
           command: [ "sh", "-c" ]
           args:
             - >
