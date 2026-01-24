@@ -13,10 +13,13 @@ spec:
           # 🔹 Use the same image + tag you use for inventory-svc
           image: 329551316753.dkr.ecr.us-east-1.amazonaws.com/jimag-dev-inventory-svc:dev-fcb15c85e0aefc30bc55ed824a8a5e749cc465fe
           imagePullPolicy: IfNotPresent
-          envFrom:
-            # reuse the exact same env as your deployment so DATABASE_URL is correct
-            - secretRef:
-                name: inventory-db-credentials
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: inventory-db-credentials
+                  key: DATABASE_URL
+          
           command: [ "sh", "-c" ]
           args:
             - >
