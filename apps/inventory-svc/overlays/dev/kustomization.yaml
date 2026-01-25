@@ -5,7 +5,7 @@ namespace: dev
 
 resources:
   - ../../base
-#  - db-seed-job.yaml
+  - db-seed-job.yaml
 
 patches:
   - path: patch-env.yaml
