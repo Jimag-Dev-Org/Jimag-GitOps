@@ -8,3 +8,7 @@ resources:
 
 patches:
   - path: patch-env.yaml
+
+images:
+  - name: 329551316753.dkr.ecr.us-east-1.amazonaws.com/jimag-dev-car-website-frontend
+    newTag: dev-fcb15c85e0aefc30bc55ed824a8a5e749cc465fe
