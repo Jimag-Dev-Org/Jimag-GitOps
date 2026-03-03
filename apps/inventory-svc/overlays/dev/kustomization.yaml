@@ -4,6 +4,7 @@ namespace: dev
 resources:
   - ../../base
   - db-seed-job.yaml
+  - external-secret-db.yaml
 patches:
   - path: patch-env.yaml
 images:
