@@ -3,6 +3,9 @@ kind: Job
 metadata:
   name: inventory-db-seed
   namespace: dev
+  metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   backoffLimit: 1
   template:
