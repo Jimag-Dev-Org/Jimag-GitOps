@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: inventory-svc-config
+  namespace: dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+data:
+  NODE_ENV: "development"
+  AWS_REGION: "us-east-1"
+  S3_BUCKET: "jimag-dev-car-images"
+
+  # Temporary dev value if using public S3 object URLs
+  PUBLIC_IMAGE_BASE: "https://jimag-dev-car-images.s3.us-east-1.amazonaws.com"
+
+  # Optional depending on how browser calls backend
+  CORS_ORIGINS: "http://localhost:3000"

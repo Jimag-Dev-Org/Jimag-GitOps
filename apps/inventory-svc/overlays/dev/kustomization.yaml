@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: dev
 resources:
   - ../../base
+  - configmap.yaml
   - db-seed-job.yaml
   - external-secret-db.yaml
 patches:
