@@ -8,9 +8,6 @@ spec:
       containers:
         - name: frontend
           image: 329551316753.dkr.ecr.us-east-1.amazonaws.com/jimag-dev-car-website-frontend:dev-PLACEHOLDER
-          env:
-            - name: NODE_ENV
-              value: "development"
           envFrom:
             - configMapRef:
-                name: frontend-config
+                name: frontend-config  #confi
