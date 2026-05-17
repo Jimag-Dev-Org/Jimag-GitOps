@@ -7,4 +7,4 @@ patches:
   - path: patch-env.yaml
 images:
   - name: 329551316753.dkr.ecr.us-east-1.amazonaws.com/jimag-dev-car-website-frontend
-    newTag: dev-1942038c28d377c53f2a298381d72c55e7c45a32
+    newTag: dev-82ef5596a055848771c1c277af9e1381458b6e3b
