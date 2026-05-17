@@ -5,6 +5,7 @@ namespace: dev
 
 resources:
   - ../../base
+  - configmap.yaml
 
 patches:
   - path: patch-env.yaml
