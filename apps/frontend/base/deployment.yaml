@@ -25,18 +25,28 @@ spec:
             - name: NEXT_PUBLIC_API_BASE
               value: "http://inventory-svc.dev.svc.cluster.local/api"  # for example, depending on namespace
 
-          livenessProbe:
+          startupProbe:
             httpGet:
-              path: /
+              path: /api/healthz
               port: 3000
-            initialDelaySeconds: 20
-            periodSeconds: 25
+            periodSeconds: 5
+            failureThreshold: 24
+
           readinessProbe:
             httpGet:
-              path: /
+              path: /api/healthz
               port: 3000
-            initialDelaySeconds: 15
-            periodSeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+
+          livenessProbe:
+          httpGet:
+            path: /api/healthz
+            port: 3000
+          periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 3
           resources:
             requests:
               cpu: "100m"
