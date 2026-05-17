@@ -6,6 +6,7 @@ resources:
   - configmap.yaml
   - db-seed-job.yaml
   - external-secret-db.yaml
+  - serviceaccount.yaml
 patches:
   - path: patch-env.yaml
 images:
