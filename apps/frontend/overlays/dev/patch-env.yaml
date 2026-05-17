@@ -10,4 +10,4 @@ spec:
           image: 329551316753.dkr.ecr.us-east-1.amazonaws.com/jimag-dev-car-website-frontend:dev-PLACEHOLDER
           envFrom:
             - configMapRef:
-                name: frontend-config
+                name: frontend-config  #confi
