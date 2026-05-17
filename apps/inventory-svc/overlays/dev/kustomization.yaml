@@ -11,7 +11,7 @@ patches:
   - path: patch-env.yaml
 images:
   - name: 329551316753.dkr.ecr.us-east-1.amazonaws.com/jimag-dev-inventory-svc
-    newTag: dev-3175f11c851526a3388876f841444d42e23706df
+    newTag: dev-04603af85835b1e55fcf590c2264b05533730a00
 # Patches for dev-specific overrides (optional for now)
 # patches:
 #   - path: patch-env.yaml
