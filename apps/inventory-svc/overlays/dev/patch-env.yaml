@@ -23,3 +23,38 @@ spec:
                 secretKeyRef:
                   name: inventory-db-credentials
                   key: DATABASE_URL
+
+          ports:
+            - containerPort: 3001
+              name: http
+
+          startupProbe:
+            httpGet:
+              path: /api/healthz
+              port: 3001
+            periodSeconds: 5
+            failureThreshold: 24
+
+          readinessProbe:
+            httpGet:
+              path: /api/readyz
+              port: 3001
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: 3001
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
