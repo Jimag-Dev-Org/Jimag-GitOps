@@ -1,0 +1,47 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: inventory-svc-alerts
+  namespace: dev
+  labels:
+    release: kube-prometheus-stack
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  groups:
+    - name: inventory-svc.rules
+      rules:
+        - alert: InventorySvcUnavailable
+          expr: kube_deployment_status_replicas_available{namespace="dev", deployment="inventory-svc"} < 1
+          for: 5m
+          labels:
+            severity: critical
+            service: inventory-svc
+          annotations:
+            summary: "inventory-svc has no available replicas"
+            description: "No inventory-svc pods have been available for 5 minutes."
+
+        - alert: InventorySvcPodRestarting
+          expr: increase(kube_pod_container_status_restarts_total{namespace="dev", container="inventory-svc"}[10m]) > 0
+          for: 5m
+          labels:
+            severity: warning
+            service: inventory-svc
+          annotations:
+            summary: "inventory-svc pod is restarting"
+            description: "inventory-svc restarted recently. Check rollout, logs, probes, DB readiness, and recent image changes."
+
+        - alert: InventorySvcHigh5xxRate
+          expr: |
+            (
+              sum(rate(http_requests_total{status_code=~"5.."}[5m]))
+              /
+              sum(rate(http_requests_total[5m]))
+            ) > 0.05
+          for: 10m
+          labels:
+            severity: warning
+            service: inventory-svc
+          annotations:
+            summary: "inventory-svc 5xx rate is high"
+            description: "More than 5% of HTTP requests are 5xx for 10 minutes."

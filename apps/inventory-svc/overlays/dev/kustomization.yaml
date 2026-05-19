@@ -7,6 +7,10 @@ resources:
   - db-seed-job.yaml
   - external-secret-db.yaml
   - serviceaccount.yaml
+  - hpa.yaml
+  - servicemonitor.yaml
+  - prometheusrule.yaml
+
 patches:
   - path: patch-env.yaml
 images:

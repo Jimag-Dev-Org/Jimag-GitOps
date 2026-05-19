@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: inventory-svc
+  namespace: dev
+  labels:
+    release: kube-prometheus-stack
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  selector:
+    matchLabels:
+      app: inventory-svc
+  namespaceSelector:
+    matchNames:
+      - dev
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+      scrapeTimeout: 5s
