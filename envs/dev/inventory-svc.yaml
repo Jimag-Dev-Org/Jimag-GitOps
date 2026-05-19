@@ -12,9 +12,17 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: inventory-svc
+      namespace: dev
+      jsonPointers:
+        - /spec/replicas  
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true
