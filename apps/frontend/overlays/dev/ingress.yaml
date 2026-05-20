@@ -5,8 +5,13 @@ metadata:
   namespace: dev
   annotations:
     argocd.argoproj.io/sync-wave: "4"
+    cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - dev.jimagcars.com
+      secretName: dev-jimagcars-com-tls
   rules:
     - host: dev.jimagcars.com
       http:

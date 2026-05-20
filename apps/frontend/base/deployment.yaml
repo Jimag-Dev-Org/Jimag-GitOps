@@ -20,7 +20,7 @@ spec:
             - containerPort: 3000
           env:
             - name: NODE_ENV
-              value: "production"
+              value: "development"
             # Example: how frontend talks to backend INSIDE the cluster
             - name: NEXT_PUBLIC_API_BASE
               value: "http://inventory-svc.dev.svc.cluster.local/api"  # for example, depending on namespace
