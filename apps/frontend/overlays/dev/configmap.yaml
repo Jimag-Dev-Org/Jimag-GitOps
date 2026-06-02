@@ -4,7 +4,7 @@ metadata:
   name: frontend-config
   namespace: dev
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "1"
 data:
   NEXT_PUBLIC_API_BASE: "http://inventory-svc.dev.svc.cluster.local/api"
   PUBLIC_IMAGE_BASE: "https://jimag-dev-car-images.s3.us-east-1.amazonaws.com"
