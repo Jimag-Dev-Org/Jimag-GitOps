@@ -8,3 +8,4 @@ resources:
   - namespaces.yaml
   - inventory-svc.yaml
   - frontend.yaml
+  - clusterissuer-letsencrypt-staging.yaml
