@@ -18,13 +18,6 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
-          env:
-            - name: NODE_ENV
-              value: "development"
-            # Example: how frontend talks to backend INSIDE the cluster
-            - name: NEXT_PUBLIC_API_BASE
-              value: "http://inventory-svc.dev.svc.cluster.local/api"  # for example, depending on namespace
-
           startupProbe:
             httpGet:
               path: /api/healthz
